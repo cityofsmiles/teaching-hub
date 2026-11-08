@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Teaching Hub</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600&display=swap">
+<style>
+/* Layout: one column of grade bands; each band holds a big numeral and a grid of resource tiles. */
+:root {
+  --bg: #f3f6f8;
+  --surface: #ffffff;
+  --fg: #14232c;
+  --muted: #53656f;
+  --line: #d5dee3;
+  --g7: #0b7a75;
+  --g7-tint: #dff3f1;
+  --g8: #a8530a;
+  --g8-tint: #fbebd8;
+  --g9: #4a45b5;
+  --g9-tint: #e6e5f8;
+  --font-display: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1a20;
+    --surface: #17262e;
+    --fg: #e8eff2;
+    --muted: #9db0ba;
+    --line: #2a3d47;
+    --g7: #4fd1c5;
+    --g7-tint: #14393a;
+    --g8: #f0a45c;
+    --g8-tint: #3d2b16;
+    --g9: #a5a1f5;
+    --g9-tint: #26254d;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1a20;
+  --surface: #17262e;
+  --fg: #e8eff2;
+  --muted: #9db0ba;
+  --line: #2a3d47;
+  --g7: #4fd1c5;
+  --g7-tint: #14393a;
+  --g8: #f0a45c;
+  --g8-tint: #3d2b16;
+  --g9: #a5a1f5;
+  --g9-tint: #26254d;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  padding-block: 28px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+
+header h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.9rem, 6vw, 2.8rem);
+  line-height: 1.05;
+  margin: 0 0 8px;
+  text-wrap: balance;
+}
+header p { margin: 0; color: var(--muted); max-width: 60ch; }
+
+.band {
+  --c: var(--g7);
+  --t: var(--g7-tint);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 20px;
+  align-items: start;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px;
+}
+.band.g8 { --c: var(--g8); --t: var(--g8-tint); }
+.band.g9 { --c: var(--g9); --t: var(--g9-tint); }
+
+.num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(4.5rem, 16vw, 7rem);
+  line-height: 0.8;
+  color: var(--c);
+  grid-row: span 2;
+  padding-top: 6px;
+}
+.label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  align-self: end;
+}
+.tiles {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+  min-width: 0;
+}
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 76px;
+  justify-content: center;
+  padding: 12px 14px;
+  background: var(--t);
+  color: var(--fg);
+  text-decoration: none;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  min-width: 0;
+}
+.tile:hover { border-color: var(--c); }
+.tile:focus-visible { outline: 3px solid var(--c); outline-offset: 2px; }
+.tile strong { font-weight: 600; font-size: 1.05rem; display: flex; justify-content: space-between; gap: 8px; }
+.tile strong::after { content: "\2197"; color: var(--c); }
+.tile span { font-size: 0.88rem; color: var(--muted); }
+.note { grid-column: 2; margin: 4px 0 0; font-size: 0.88rem; color: var(--muted); }
+
+footer { font-size: 0.85rem; color: var(--muted); }
+
+@media (max-width: 560px) {
+  .band { grid-template-columns: 1fr; padding: 16px; }
+  .num { grid-row: auto; font-size: 4.5rem; padding-top: 0; }
+  .label { display: none; }
+  .tiles, .note { grid-column: 1; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tile { transition: border-color 0.15s; }
+}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Teaching Hub</h1>
+    <p>Flashcards, lesson slides and handouts for Grades 7, 8 and 9. Tap a tile to open it in a new tab.</p>
+  </header>
+
+  <section class="band g7" aria-labelledby="g7h">
+    <div class="num" id="g7h" aria-label="Grade 7">7</div>
+    <div class="label">Grade 7</div>
+    <div class="tiles">
+      <a class="tile" href="https://cityofsmiles.github.io/flashcards4tv7/" target="_blank" rel="noopener">
+        <strong>Flashcards</strong><span>Grade 7 review cards</span>
+      </a>
+      <a class="tile" href="https://cityofsmiles.github.io/g7-slides/" target="_blank" rel="noopener">
+        <strong>Lesson slides</strong><span>Grade 7 lessons</span>
+      </a>
+      <a class="tile" href="https://texmathpro.github.io/posts/ga-qa-hp/" target="_blank" rel="noopener">
+        <strong>Handouts</strong><span>Downloadable PDFs</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="band g8" aria-labelledby="g8h">
+    <div class="num" id="g8h" aria-label="Grade 8">8</div>
+    <div class="label">Grade 8</div>
+    <div class="tiles">
+      <a class="tile" href="https://cityofsmiles.github.io/flashcards4tv8/" target="_blank" rel="noopener">
+        <strong>Flashcards</strong><span>Grade 8 review cards</span>
+      </a>
+    </div>
+    <p class="note">Slides and handouts for Grade 8 are not added yet.</p>
+  </section>
+
+  <section class="band g9" aria-labelledby="g9h">
+    <div class="num" id="g9h" aria-label="Grade 9">9</div>
+    <div class="label">Grade 9</div>
+    <div class="tiles">
+      <a class="tile" href="https://cityofsmiles.github.io/flashcards4tv9/" target="_blank" rel="noopener">
+        <strong>Flashcards</strong><span>Grade 9 review cards</span>
+      </a>
+      <a class="tile" href="https://cityofsmiles.github.io/g9-slides/" target="_blank" rel="noopener">
+        <strong>Lesson slides</strong><span>Grade 9 lessons</span>
+      </a>
+      <a class="tile" href="https://texmathpro.github.io/posts/ga-qa-hp/" target="_blank" rel="noopener">
+        <strong>Handouts</strong><span>Downloadable PDFs</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>The Grade 7 and Grade 9 handouts currently point to the same page.</footer>
+</div>
+</body>
+</html>
